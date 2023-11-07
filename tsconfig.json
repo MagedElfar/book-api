@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",   
+    "removeComments": true, 
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "noEmitOnError": true,                           
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,                               
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
+    "typeRoots": ["./src/types"],
+    "types": ["index.d.ts"]
+  },
+
+  "include": ["src/**/*.ts", "./../test/**/*.ts", "src/db/migrations/20231102041235-users.js", "src/db/migrations/20231102041422-create-refresh-token.js", "src/db/migrations/20231102041659-create-entity.js", "src/db/migrations/20231102041806-create-attribute.js", "src/db/migrations/20231102042006-create-entity-instance.js"],
+  "exclude": [
+    "node_modules"
+  ]
+}
