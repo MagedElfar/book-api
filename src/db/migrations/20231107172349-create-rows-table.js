@@ -2,17 +2,17 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   up: async (queryInterface, sequelize) => {
-    await queryInterface.createTable('entities_attributes', {
+    await queryInterface.createTable('rows', {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true,
       },
-      attributeId: {
-        type: DataTypes.INTEGER.UNSIGNED,
+      name: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      entityId: {
+      section_id: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
       },
@@ -27,24 +27,12 @@ module.exports = {
     });
 
     // Add foreign key constraints if needed
-    await queryInterface.addConstraint('entities_attributes', {
+    await queryInterface.addConstraint('rows', {
       type: 'foreign key',
-      name: 'fk_attributeId',
-      fields: ['attributeId'],
+      name: 'fk_section_id',
+      fields: ['section_id'],
       references: {
-        table: 'attributes',
-        field: 'id',
-      },
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE'
-    });
-
-    await queryInterface.addConstraint('entities_attributes', {
-      type: 'foreign key',
-      name: 'fk_entityId',
-      fields: ['entityId'],
-      references: {
-        table: 'entities',
+        table: 'sections',
         field: 'id',
       },
       onDelete: 'CASCADE',
@@ -53,6 +41,6 @@ module.exports = {
   },
 
   down: async (queryInterface, sequelize) => {
-    await queryInterface.dropTable('entities_attributes');
+    await queryInterface.dropTable('rows');
   },
 };
