@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import Book from "../models/book.model";
 import Borrow, { BorrowAttributes } from "../models/borrow.model";
 import User from "../models/user.model";
@@ -12,8 +13,18 @@ export default class BorrowRepository extends GenericRepository<Borrow, BorrowAt
 
     public async findMany(getManyDto: GetManyDto): Promise<{ count: number, records: BorrowAttributes[] }> {
         try {
+            const { overdue = false, ...otherDta } = getManyDto?.data
+            const whereCondition: any = otherDta
+
+            if (overdue) {
+                const currentDate = new Date();
+                whereCondition.due_date = {
+                    [Op.lt]: currentDate, // Due date is earlier than the provided date
+                };
+            }
+
             const data = await this.model.findAll({
-                where: getManyDto?.data || {},
+                where: whereCondition,
                 include: [
                     {
                         model: Book,
@@ -33,7 +44,7 @@ export default class BorrowRepository extends GenericRepository<Borrow, BorrowAt
             });
 
             const count = await this.model.count({
-                where: getManyDto?.data || {},
+                where: whereCondition,
             });
 
             const records = data.map((model) => model.dataValues);

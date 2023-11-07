@@ -10,9 +10,6 @@ import { GetManyDto } from '../repositories/genericRepository';
 export interface IBorrowServices {
     borrowBook(borrowBookDto: BorrowBookDto): Promise<BorrowAttributes>;
     getBorrows(getManyDto: GetManyDto): Promise<any>;
-    // deleteBooks(deleteBookDto: DeleteBookDto): Promise<void>
-    // updatedBook(updateBookDto: UpdateBookDto): Promise<BookAttributes | null>
-    // updatedQty(updateBookDto: UpdateBookDto): Promise<BookAttributes | null>
     getBorrow(borrowAttributes: Partial<BorrowAttributes>): Promise<BorrowAttributes | null>
     getBorrowByID(id: number): Promise<BorrowAttributes | null>
     returnBook(returnBookDto: ReturnBookDto): Promise<BorrowAttributes | null>
@@ -117,6 +114,8 @@ export default class BorrowServices implements IBorrowServices {
             if (!borrow) throw new NotFoundError();
 
             if (borrow.user_id !== returnBookDto.user_id) throw new ForbiddenError()
+
+            if (borrow.return_date) throw new BadRequestError("book already returned")
 
             const return_date = moment().format("MM/DD/YYYY");
 

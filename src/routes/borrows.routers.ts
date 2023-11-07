@@ -34,10 +34,11 @@ borrowRouter.get(
     borrowController.getUserBorrowsHandler.bind(borrowController)
 )
 
-// borrowRouter.get(
-//     "/:id",
-//     borrowController.getBookHandler.bind(borrowController)
-// )
+borrowRouter.get(
+    "/overdue",
+    validation(borrowValidation.getManySchema, "query"),
+    borrowController.getOverdueBorrowsHandler.bind(borrowController)
+)
 
 borrowRouter.post(
     "/",

@@ -73,7 +73,29 @@ export default class BorrowController {
         } catch (error) {
             next(error)
         }
+    }
 
+    async getOverdueBorrowsHandler(req: Request, res: Response, next: NextFunction) {
+
+        try {
+
+            const { limit = 10, page = 1 } = req.query
+
+            const sections = await this.borrowServices.getBorrows({
+                data: { overdue: true, return_date: null },
+                options: {
+                    limit: +limit,
+                    page: +page
+                }
+            });
+
+            sendResponse(res, {
+                sections
+            }, 200)
+
+        } catch (error) {
+            next(error)
+        }
     }
 
     // async getRowHandler(req: Request, res: Response, next: NextFunction) {
