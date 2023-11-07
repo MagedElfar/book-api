@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"test\",\r\n     \"email\": \"maged.1992.me@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+							"raw": "{\r\n    \"name\": \"test\",\r\n     \"email\": \"maged.me@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -649,7 +649,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"book-3\",\r\n    \"author\": \"maged\",\r\n    \"ISBN\": \"bk-1234\",\r\n    \"qty\": 10,\r\n    \"row_id\": 2\r\n}",
+							"raw": "{\r\n    \"title\": \"book-3\",\r\n    \"author\": \"maged\",\r\n    \"ISBN\": \"bk-1234tr\",\r\n    \"qty\": 10,\r\n    \"row_id\": 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -703,13 +703,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/books/2",
+							"raw": "{{url}}/books/4",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"books",
-								"2"
+								"4"
 							]
 						},
 						"description": "## Endpoint Descriptions:\n\nthis endpoint used for delete a book\n\n## EndPoint:\n\n##### /api/books/:id\n\n## Request param:\n\n| Field | Descriptions | required | type |\n| --- | --- | --- | --- |\n| id | book id | true | number |"
@@ -851,6 +851,38 @@
 					"response": []
 				},
 				{
+					"name": "track borrow book",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/borrows?page=1&limit=10&isBorrow=0",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"borrows"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "isBorrow",
+									"value": "0"
+								}
+							]
+						},
+						"description": "## Endpoint Descriptions:\n\nthis endpoint use for get all books borrow\n\n## EndPoint:\n\n##### /api/borrows\n\n## Request query:\n\n| Field | Descriptions | required | type |\n| --- | --- | --- | --- |\n| limit | records number ber requset.  <br>defulte = 10 | false | number |\n| page | page number.  <br>defulte = 1 | false | number |\n| isBorrow  <br>al | set to 1 to get only not returend books | false | nmmber |"
+					},
+					"response": []
+				},
+				{
 					"name": "get overdue borrow",
 					"request": {
 						"method": "GET",
@@ -893,7 +925,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk5MzA1MjAyLCJleHAiOjE2OTkzOTE2MDJ9.kX4dxgXM4F-bF2UY0numqrrOxFuaP2z7Y1ZjrB0nVbg",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk5MzgzOTM0LCJleHAiOjE2OTk0NzAzMzR9.sHQMiLDsa4duehrgbg3aRHoFQhL9wL0fepzod_l0KDM",
 				"type": "string"
 			}
 		]
