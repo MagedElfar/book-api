@@ -29,6 +29,12 @@ const borrowController: BorrowController = new BorrowController(
 )
 
 borrowRouter.get(
+    "/",
+    validation(borrowValidation.getManyBorrow, "query"),
+    borrowController.getBorrowsHandler.bind(borrowController)
+)
+
+borrowRouter.get(
     "/user",
     validation(borrowValidation.getManySchema, "query"),
     borrowController.getUserBorrowsHandler.bind(borrowController)

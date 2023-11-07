@@ -52,6 +52,29 @@ export default class BorrowController {
 
     }
 
+    async getBorrowsHandler(req: Request, res: Response, next: NextFunction) {
+
+        try {
+
+            const { limit = 10, page = 1, isBorrow = false } = req.query
+
+            const sections = await this.borrowServices.getBorrows({
+                data: +isBorrow === 1 ? { user_Id: req.user?.id, return_date: null } : {},
+                options: {
+                    limit: +limit,
+                    page: +page
+                }
+            });
+
+            sendResponse(res, {
+                sections
+            }, 200)
+
+        } catch (error) {
+            next(error)
+        }
+    }
+
     async getUserBorrowsHandler(req: Request, res: Response, next: NextFunction) {
 
         try {

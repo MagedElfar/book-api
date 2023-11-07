@@ -28,7 +28,21 @@ const getManySchema = Joi.object({
 })
 
 
+const getManyBorrow = Joi.object({
+
+    isBorrow: Joi.number().min(0).max(1).optional(),
+    page: Joi.number().min(1).optional(),
+    limit: Joi.number().when('page', {
+        is: Joi.exist(),
+        then: Joi.required(),
+        otherwise: Joi.optional()
+    })
+
+})
+
+
 export {
     getManySchema,
     borrowBookSchema,
+    getManyBorrow
 }
