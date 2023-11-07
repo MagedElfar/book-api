@@ -2,7 +2,6 @@ import { Router } from "express"
 import * as rowsValidation from "../validations/row.validation"
 import validation from "../middlewares/validation.middleware"
 import SectionServices from "../services/section.services";
-import { permissionMiddleware } from "../middlewares/permission.middleware";
 import SectionRepository from "../repositories/section.repository";
 import RowController from "../controllers/row.controllers";
 import RowServices from "../services/row.services";

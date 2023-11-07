@@ -1,6 +1,5 @@
 import Joi from "joi";
 
-
 const createSectionSchema = Joi.object({
 
     name: Joi.string().required()
