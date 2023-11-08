@@ -60,7 +60,7 @@ npx sequelize migration:generate --name createRowsTable --migrations-path ./path
 script to run database migration
 
 ```bash
-$ npx sequelize-cli db:migrate --url "mysql://username:password@host/database" --migrations-path "src/db/migrations"
+$ npx sequelize-cli db:migrate --url "mysql://username:password@host/database_name" --migrations-path "src/db/migrations"
 ```
 
 ## Environment Variables
