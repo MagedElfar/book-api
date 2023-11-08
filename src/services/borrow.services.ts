@@ -89,23 +89,6 @@ export default class BorrowServices implements IBorrowServices {
         }
     }
 
-    // async deleteBooks(deleteBookDto: DeleteBookDto): Promise<void> {
-    //     try {
-
-    //         let book = await this.getBookByID(deleteBookDto.id);
-
-    //         if (!book) throw new NotFoundError("book not found");
-
-    //         this.bookPermission(book, deleteBookDto.user_id!, deleteBookDto.userRole)
-
-    //         await this.bookRepository.delete({ id: deleteBookDto.id })
-
-    //         return;
-    //     } catch (error) {
-    //         throw error
-    //     }
-    // }
-
     async returnBook(returnBookDto: ReturnBookDto): Promise<BorrowAttributes | null> {
         try {
 
@@ -119,7 +102,18 @@ export default class BorrowServices implements IBorrowServices {
 
             const return_date = moment().format("MM/DD/YYYY");
 
-            return await this.borrowRepository.update(returnBookDto.id, { return_date });
+            const book = await this.bookServices.getBookByID(borrow.book_id)
+
+            borrow = await this.borrowRepository.update(returnBookDto.id, { return_date });
+
+            await this.bookServices.updatedQty({
+                id: book?.id!,
+                qty: book?.qty! + 1,
+                userRole: ""
+
+            })
+
+            return borrow;
 
         } catch (error) {
             throw error

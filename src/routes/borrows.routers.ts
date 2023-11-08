@@ -10,6 +10,7 @@ import RowRepository from "../repositories/row.repository";
 import BorrowController from "../controllers/borrow.controllers";
 import BorrowServices from "../services/borrow.services";
 import BorrowRepository from "../repositories/borrow.repository";
+import { permissionMiddleware } from "../middlewares/permission.middleware";
 
 const borrowRouter = Router();
 
@@ -30,6 +31,7 @@ const borrowController: BorrowController = new BorrowController(
 
 borrowRouter.get(
     "/",
+    permissionMiddleware,
     validation(borrowValidation.getManyBorrow, "query"),
     borrowController.getBorrowsHandler.bind(borrowController)
 )
@@ -42,6 +44,7 @@ borrowRouter.get(
 
 borrowRouter.get(
     "/overdue",
+    permissionMiddleware,
     validation(borrowValidation.getManySchema, "query"),
     borrowController.getOverdueBorrowsHandler.bind(borrowController)
 )
@@ -56,16 +59,5 @@ borrowRouter.put(
     "/:id",
     borrowController.returnBookHandler.bind(borrowController)
 )
-
-// borrowRouter.delete(
-//     "/:id",
-//     borrowController.deleteHandler.bind(borrowController)
-// )
-
-// borrowRouter.put(
-//     "/:id",
-//     validation(bookValidation.updateBookSchema),
-//     borrowController.updateBookHandler.bind(borrowController)
-// )
 
 export default borrowRouter;

@@ -56,10 +56,12 @@ export default class BorrowController {
 
         try {
 
-            const { limit = 10, page = 1, isBorrow = false } = req.query
+            const { limit = 10, page = 1, isBorrow = false, ...rest } = req.query
+
+            const data = +isBorrow === 1 ? { return_date: null, ...rest } : rest
 
             const sections = await this.borrowServices.getBorrows({
-                data: +isBorrow === 1 ? { user_Id: req.user?.id, return_date: null } : {},
+                data,
                 options: {
                     limit: +limit,
                     page: +page

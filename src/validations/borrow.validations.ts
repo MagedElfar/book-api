@@ -1,3 +1,4 @@
+import { Optional } from 'sequelize';
 import BaseJoi from 'joi';
 import JoiDate from '@joi/date';
 
@@ -30,7 +31,13 @@ const getManySchema = Joi.object({
 
 const getManyBorrow = Joi.object({
 
-    isBorrow: Joi.number().min(0).max(1).optional(),
+    user_id: Joi.number().optional(),
+    overdue: Joi.number().min(0).max(1).equal(1).optional(),
+    isBorrow: Joi.number().min(0).max(1).when('overdue', {
+        is: Joi.exist(),
+        then: Joi.equal(1).required(),
+        otherwise: Joi.optional()
+    }),
     page: Joi.number().min(1).optional(),
     limit: Joi.number().when('page', {
         is: Joi.exist(),
