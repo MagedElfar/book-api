@@ -46,18 +46,14 @@ $ npm start
 
 ## Database Migration
 
-### Migration
-
-create new migration file
+### create new migration file
 
 ```bash
 $ npx sequelize migration:generate --name migrationsFileName --migrations-path ./src/db/migrations
 
 ```
 
-npx sequelize migration:generate --name createRowsTable --migrations-path ./path/to/migrations
-
-script to run database migration
+### script to run database migration
 
 ```bash
 $ npx sequelize-cli db:migrate --url "mysql://username:password@host/database_name" --migrations-path "src/db/migrations"
